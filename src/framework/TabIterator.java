@@ -5,6 +5,7 @@ import java.util.Iterator;
 public class TabIterator implements Iterator {
 
     private Object[] tab;
+    int position = 0;
 
     public TabIterator(Object[] tab){
         this.tab = tab;
@@ -12,11 +13,19 @@ public class TabIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return false;
+
+        if(position >= tab.length || tab[position] == null){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     @Override
     public Object next() {
-        return null;
+        Object item = tab[position];
+        position ++;
+        return item;
     }
 }
