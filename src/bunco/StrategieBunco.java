@@ -1,13 +1,14 @@
-package bungo;
+package bunco;
 
 import framework.Jeu;
 import framework.Strategie;
 
-public class StrategieBungo extends Strategie {
+public class StrategieBunco extends Strategie {
+
     /**
      * Ce constructeur permet de créer une nouvelle de partie de Bunco classique jouable en 6 tours avec 3 dés.
      */
-    public StrategieBungo() {
+    public StrategieBunco() {
         super(6);
     }
 
@@ -16,7 +17,7 @@ public class StrategieBungo extends Strategie {
      *
      * @param nbTour nombre de tours de jeu
      */
-    public StrategieBungo(int nbTour) {
+    public StrategieBunco(int nbTour) {
         super(nbTour);
     }
 
@@ -25,7 +26,7 @@ public class StrategieBungo extends Strategie {
      * @param jeu Partie de jeu actuelle
      */
     public void calculerScoreTour(Jeu jeu) {
-        // for all player
+        // for ONE player (écrit dans les consignes qu'il faut faire pour un joueur seulement)
         // utiliser les dès et attribuer les points selon le résultat
 
     }

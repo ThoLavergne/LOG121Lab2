@@ -2,25 +2,21 @@ package framework;
 
 public abstract class Factory {
 
-    //Constructeur de Factory avec la Stratégie et le nombre de joueurs en paramètres ?
-
-    //Méthode de la création d'une partie
+    //Méthode Template de la création d'une partie
     public final void creerPartie() {
         DeCollection des = creerDes();
-        PlayerCollection players = creerJoueurs();
-        creerJeu(des, players);
+        PlayerCollection players = creerPlayers();
+        creerJeu(des, players, );
     }
 
-    public abstract DeCollection creerDes(); //En fonction de la stratégie mise en paramètre
+    public abstract DeCollection creerDes();
 
-    private PlayerCollection creerJoueurs() //En fonction du nombre de joueurs mis en paramètre
-    {
-        //TODO
-        return null;
+    public abstract PlayerCollection creerPlayers();
+
+    public void creerJeu(DeCollection des, PlayerCollection players, int nbTours, Strategie strategie) {
     }
 
-    public abstract void creerJeu(DeCollection des, PlayerCollection players);
-    //En fonction de la stratégie mise en paramètre
-
+    //Méthode Fabrique
+    public abstract Strategie strategie();
 
 }

@@ -2,14 +2,14 @@
 
 title __LOG121LAB2's Class Diagram__\n
 
-  namespace bungo {
-    class bungo.Bungo {
+  namespace bunco {
+    class bunco.Bungo {
     }
   }
   
 
-  namespace bungo {
-    class bungo.StrategieBungo {
+  namespace bunco {
+    class bunco.StrategieBunco {
             + calculerLeVainqueur()
             + calculerScoreTour()
     }
@@ -91,8 +91,8 @@ title __LOG121LAB2's Class Diagram__\n
   }
   
 
-  bungo.Bungo -up-|> framework.Jeu
-  bungo.StrategieBungo .up.|> framework.IStrategie
+  bunco.Bungo -up-|> framework.Jeu
+  bunco.StrategieBunco .up.|> framework.IStrategie
   framework.DeCollection .up.|> java.util.Collection
   framework.PlayerCollection .up.|> java.util.Collection
   framework.De .up.|> java.lang.Comparable

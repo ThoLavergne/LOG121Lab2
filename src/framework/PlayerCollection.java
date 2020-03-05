@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class PlayerCollection implements Collection<Player> {
 
     private Player[] tabPlayer;
-    private int capacite;
+    private int capacite = 0;
 
     public PlayerCollection(){
         tabPlayer = new Player[0];
@@ -53,6 +53,16 @@ public class PlayerCollection implements Collection<Player> {
     public boolean add(Player player) {
         this.add(player, this.tabPlayer, this.tabPlayer.length);
         return true;
+    }
+
+    private void add(Player player, Player[] tabPlayer, int position) {
+
+        if (position == tabPlayer.length) {
+            tabPlayer = this.etendre();
+        }
+
+        tabPlayer[position] = player;
+        this.capacite = position + 1;
     }
 
     @Override
@@ -101,16 +111,6 @@ public class PlayerCollection implements Collection<Player> {
         }
     }
 
-    private void add(Player player, Player[] tabPlayer, int position) {
-
-        if (position == tabPlayer.length) {
-            tabPlayer = this.etendre();
-        }
-
-        tabPlayer[position] = player;
-        this.capacite = position + 1;
-    }
-
     private Player[] etendre(int newCapacite) {
         return this.tabPlayer = Arrays.copyOf(this.tabPlayer, newCapacite);
     }
@@ -119,9 +119,16 @@ public class PlayerCollection implements Collection<Player> {
         return this.etendre(this.capacite + 1);
     }
 
+    /**
+     * Méthode qui retourne le premier player de la collection
+     * @return le premier Player de la collection
+     */
+    public Player first(){
+        return this.tabPlayer[0];
+    }
 
     /*
-    Les méthoPlayers suivantes ne sont pas utilisées dans notre cas
+    Les méthodes suivantes ne sont pas utilisées dans notre cas
     Nous les avons mises incscrites pour que la classe puisse compiler,
     Mais nous n'allons pas les implémenter
     */

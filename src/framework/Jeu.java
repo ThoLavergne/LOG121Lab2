@@ -68,4 +68,10 @@ public class Jeu {
         this.strategie.calculerLeVainqueur(this);
     }
 
+    /**
+     * Méthode qui lance la partie et gère le tour des joueurs jusqu'à la fin de la partie
+     */
+    public void lancerPartie(){
+
+    }
 }

@@ -4,6 +4,8 @@ import org.junit.*;
 
 import framework.De;
 
+import static org.junit.Assert.assertTrue;
+
 public class DeTest {
     private De de1;
     private De de2;
