@@ -9,6 +9,11 @@ public class De implements Comparable<De>{
         this.nbFaces = nbFaces;
     }
 
+
+    public int getNbFaces(){
+        return this.nbFaces;
+    }
+
     public int getFaceObtenue(){
         return this.faceObtenue;
     }

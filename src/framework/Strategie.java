@@ -1,8 +1,10 @@
 package framework;
 
+import java.util.Collection;
+
 public abstract class Strategie {
 
-    public abstract void calculerScoreTour(Jeu jeu);
-    public abstract void calculerLeVainqueur(Jeu jeu);
+    public abstract int calculerScoreTour(Jeu jeu);
+    public abstract PlayerCollection calculerLeVainqueur(Jeu jeu);
 
 }

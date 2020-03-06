@@ -1,169 +1,53 @@
 package framework;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+public class PlayerCollection extends ComparableCollection{
 
-public class PlayerCollection implements Collection<Player> {
-
-    private Player[] tabPlayer;
-    private int capacite = 0;
-
-    public PlayerCollection(){
-        tabPlayer = new Player[0];
-    }
-
-    public PlayerCollection(int capacite){
-        tabPlayer = new Player[capacite];
-        this.capacite = capacite;
-    }
-
+    /**
+     * Méthode qui affiche l'info de tous les Players de la collection, dans l'ordre dans lequel ils sont dans la
+     * PlayerCollection
+     */
     @Override
-    public int size() {
-        return tabPlayer.length;
-    }
+   public void afficherComparables(){
 
-    @Override
-    public boolean isEmpty() {
-        return this.tabPlayer.length == 0;
-    }
-
-    @Override
-    public boolean contains(Object o) {
-
-        for (int i = 0; i < tabPlayer.length; i++){
-            if (tabPlayer[i].equals(o)){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
-    public Iterator<Player> iterator() {
-        return new TabIterator(tabPlayer);
-    }
-
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(this.tabPlayer, tabPlayer.length);
-    }
-
-    public boolean add(Player player) {
-        this.add(player, this.tabPlayer, this.tabPlayer.length);
-        return true;
-    }
-
-    private void add(Player player, Player[] tabPlayer, int position) {
-
-        if (position == tabPlayer.length) {
-            tabPlayer = this.etendre();
-        }
-
-        tabPlayer[position] = player;
-        this.capacite = position + 1;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-
-        Player[] newTab;
-        boolean deTrouve = false;
-        int posAEnlever = 0;
-
-        for (int i = 0; i < this.capacite; i++){
-            if (tabPlayer[i].equals(o)){
-                deTrouve = true;
-                posAEnlever = i;
-            }
-        }
-
-        if(!deTrouve){
-            return false;
-        }
-
-        else{
-            this.capacite = this.capacite - 1;
-            newTab = new Player[this.capacite];
-            boolean trouPasse = false;
-
-            for (int j = 0; j < tabPlayer.length; j++){
-
-                if(!trouPasse){
-
-                    if(j == posAEnlever){
-                        trouPasse = true;
-                    }
-
-                    else{
-                        newTab[j] = tabPlayer[j];
-                    }
-                }
-
-                else{
-                    newTab[j-1] = tabPlayer[j];
-                }
-            }
-
-            tabPlayer = newTab;
-            return true;
-        }
-    }
-
-    private Player[] etendre(int newCapacite) {
-        return this.tabPlayer = Arrays.copyOf(this.tabPlayer, newCapacite);
-    }
-
-    private Player[] etendre() {
-        return this.etendre(this.capacite + 1);
+        System.out.println("\nCLASSEMENT DES JOUEURS");
+        super.afficherComparables();
     }
 
     /**
-     * Méthode qui retourne le premier player de la collection
-     * @return le premier Player de la collection
+     * Méthode qui classe les joueurs selon leur score, du plus haut au plus bas, et retourne une copie
+     * de la Collection, triée
+     * @return rankedComparables : ComparableCollection en ordre décroisssant de score
      */
-    public Player first(){
-        return this.tabPlayer[0];
+    @Override
+    public PlayerCollection triDecroissant(){
+
+        ComparableCollection rankedComparables = new PlayerCollection();
+
+        rankedComparables.setTabComparables(this.getTabComparable().clone());
+
+        int pos_max = 0;
+
+        for (int indice_passe = 0; indice_passe < rankedComparables.size() -1 ; indice_passe++) {
+
+            pos_max = indice_passe;
+
+            for (int indice_recherche = (indice_passe+1); indice_recherche < rankedComparables.size(); indice_recherche ++ ) {
+
+                if(rankedComparables.getComparable(indice_recherche).compareTo(rankedComparables.getComparable(pos_max)) == -1) {
+                    pos_max = indice_recherche;
+                }
+            }
+
+            Comparable temp = rankedComparables.getComparable(indice_passe);
+            Comparable max = rankedComparables.getComparable(pos_max);
+            rankedComparables.setComparable(max, indice_passe);
+            rankedComparables.setComparable(temp, pos_max);
+
+        }
+
+        return (PlayerCollection) rankedComparables;
     }
 
-    /*
-    Les méthodes suivantes ne sont pas utilisées dans notre cas
-    Nous les avons mises incscrites pour que la classe puisse compiler,
-    Mais nous n'allons pas les implémenter
-    */
-    @Override
-    public boolean containsAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
 
-    @Override
-    public boolean addAll(Collection<? extends Player> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
 
-    @Override
-    public boolean removeAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public void clear() {
-        System.out.println("Implémentation omise pour ce type de Collection");
-    }
-
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return null;
-    }
 }
