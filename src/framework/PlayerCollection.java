@@ -1,162 +1,53 @@
 package framework;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+public class PlayerCollection extends ComparableCollection{
 
-public class PlayerCollection implements Collection<Player> {
-
-    private Player[] tabPlayer;
-    private int capacite;
-
-    public PlayerCollection(){
-        tabPlayer = new Player[0];
-    }
-
-    public PlayerCollection(int capacite){
-        tabPlayer = new Player[capacite];
-        this.capacite = capacite;
-    }
-
+    /**
+     * Méthode qui affiche l'info de tous les Players de la collection, dans l'ordre dans lequel ils sont dans la
+     * PlayerCollection
+     */
     @Override
-    public int size() {
-        return tabPlayer.length;
+   public void afficherComparables(){
+
+        System.out.println("\nCLASSEMENT DES JOUEURS");
+        super.afficherComparables();
     }
 
+    /**
+     * Méthode qui classe les joueurs selon leur score, du plus haut au plus bas, et retourne une copie
+     * de la Collection, triée
+     * @return rankedComparables : ComparableCollection en ordre décroisssant de score
+     */
     @Override
-    public boolean isEmpty() {
-        return this.tabPlayer.length == 0;
-    }
+    public PlayerCollection triDecroissant(){
 
-    @Override
-    public boolean contains(Object o) {
+        ComparableCollection rankedComparables = new PlayerCollection();
 
-        for (int i = 0; i < tabPlayer.length; i++){
-            if (tabPlayer[i].equals(o)){
-                return true;
-            }
-        }
+        rankedComparables.setTabComparables(this.getTabComparable().clone());
 
-        return false;
-    }
+        int pos_max = 0;
 
-    @Override
-    public Iterator<Player> iterator() {
-        return new TabIterator(tabPlayer);
-    }
+        for (int indice_passe = 0; indice_passe < rankedComparables.size() -1 ; indice_passe++) {
 
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(this.tabPlayer, tabPlayer.length);
-    }
+            pos_max = indice_passe;
 
-    public boolean add(Player player) {
-        this.add(player, this.tabPlayer, this.tabPlayer.length);
-        return true;
-    }
+            for (int indice_recherche = (indice_passe+1); indice_recherche < rankedComparables.size(); indice_recherche ++ ) {
 
-    @Override
-    public boolean remove(Object o) {
-
-        Player[] newTab;
-        boolean deTrouve = false;
-        int posAEnlever = 0;
-
-        for (int i = 0; i < this.capacite; i++){
-            if (tabPlayer[i].equals(o)){
-                deTrouve = true;
-                posAEnlever = i;
-            }
-        }
-
-        if(!deTrouve){
-            return false;
-        }
-
-        else{
-            this.capacite = this.capacite - 1;
-            newTab = new Player[this.capacite];
-            boolean trouPasse = false;
-
-            for (int j = 0; j < tabPlayer.length; j++){
-
-                if(!trouPasse){
-
-                    if(j == posAEnlever){
-                        trouPasse = true;
-                    }
-
-                    else{
-                        newTab[j] = tabPlayer[j];
-                    }
-                }
-
-                else{
-                    newTab[j-1] = tabPlayer[j];
+                if(rankedComparables.getComparable(indice_recherche).compareTo(rankedComparables.getComparable(pos_max)) == -1) {
+                    pos_max = indice_recherche;
                 }
             }
 
-            tabPlayer = newTab;
-            return true;
-        }
-    }
+            Comparable temp = rankedComparables.getComparable(indice_passe);
+            Comparable max = rankedComparables.getComparable(pos_max);
+            rankedComparables.setComparable(max, indice_passe);
+            rankedComparables.setComparable(temp, pos_max);
 
-    private void add(Player player, Player[] tabPlayer, int position) {
-
-        if (position == tabPlayer.length) {
-            tabPlayer = this.etendre();
         }
 
-        tabPlayer[position] = player;
-        this.capacite = position + 1;
-    }
-
-    private Player[] etendre(int newCapacite) {
-        return this.tabPlayer = Arrays.copyOf(this.tabPlayer, newCapacite);
-    }
-
-    private Player[] etendre() {
-        return this.etendre(this.capacite + 1);
+        return (PlayerCollection) rankedComparables;
     }
 
 
-    /*
-    Les méthoPlayers suivantes ne sont pas utilisées dans notre cas
-    Nous les avons mises incscrites pour que la classe puisse compiler,
-    Mais nous n'allons pas les implémenter
-    */
-    @Override
-    public boolean containsAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
 
-    @Override
-    public boolean addAll(Collection<? extends Player> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public void clear() {
-        System.out.println("Implémentation omise pour ce type de Collection");
-    }
-
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return null;
-    }
 }

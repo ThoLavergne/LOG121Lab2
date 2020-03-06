@@ -3,162 +3,36 @@ package framework;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Random;
 
-public class DeCollection implements Collection<De> {
+public class DeCollection extends ComparableCollection {
 
-    private De[] tabDe;
-    private int capacite;
+    private static Random rand = new Random();
 
-    public DeCollection(){
-        tabDe = new De[0];
-    }
+    /**
+     * Méthode qui brasse tous les dés de la collection et retourne un tableau de resultats qui contient le resultat de
+     * chaque dé
+     * @return resultats : int[]
+     */
+    public int[] toutBrasser(){
 
-    public DeCollection(int capacite){
-        tabDe = new De[capacite];
-        this.capacite = capacite;
-    }
+        int [] resultats = new int[this.getCapacite()];
 
-    @Override
-    public int size() {
-        return tabDe.length;
-    }
+        TabIterator iterator = this.iterator();
+        int position = 0;
 
-    @Override
-    public boolean isEmpty() {
-        return this.tabDe.length == 0;
-    }
+        while(iterator.hasNext()){
 
-    @Override
-    public boolean contains(Object o) {
+            De deCourant = (De) iterator.next();
+            int nbFaces = deCourant.getNbFaces();
+            deCourant.setFaceObtenue(rand.nextInt(nbFaces+1));
+            resultats[position] = deCourant.getFaceObtenue();
+            position ++;
 
-        for (int i = 0; i < tabDe.length; i++){
-            if (tabDe[i].equals(o)){
-                return true;
-            }
         }
 
-        return false;
-    }
-
-    @Override
-    public Iterator<De> iterator() {
-        return new TabIterator(tabDe);
-    }
-
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(this.tabDe, tabDe.length);
-    }
-
-    public boolean add(De de) {
-        this.add(de, this.tabDe, this.tabDe.length);
-        return true;
-    }
-
-    private void add(De de, De[] tabDe, int position) {
-
-        if (position == tabDe.length) {
-            tabDe = this.etendre();
-        }
-
-        tabDe[position] = de;
-        this.capacite = position + 1;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-
-        De[] newTab;
-        boolean deTrouve = false;
-        int posAEnlever = 0;
-
-        for (int i = 0; i < this.capacite; i++){
-            if (tabDe[i].equals(o)){
-                deTrouve = true;
-                posAEnlever = i;
-            }
-        }
-
-        if(!deTrouve){
-            return false;
-        }
-
-        else{
-            this.capacite = this.capacite - 1;
-            newTab = new De[this.capacite];
-            boolean trouPasse = false;
-
-            for (int j = 0; j < tabDe.length; j++){
-
-                if(!trouPasse){
-
-                    if(j == posAEnlever){
-                        trouPasse = true;
-                    }
-
-                    else{
-                        newTab[j] = tabDe[j];
-                    }
-                }
-
-                else{
-                    newTab[j-1] = tabDe[j];
-                }
-            }
-
-            tabDe = newTab;
-            return true;
-        }
+        return resultats;
     }
 
 
-
-    private De[] etendre(int newCapacite) {
-        return this.tabDe = Arrays.copyOf(this.tabDe, newCapacite);
-    }
-
-    private De[] etendre() {
-        return this.etendre(this.capacite + 1);
-    }
-
-
-    /*
-    Les méthodes suivantes ne sont pas utilisées dans notre cas
-    Nous les avons mises incscrites pour que la classe puisse compiler,
-    Mais nous n'allons pas les implémenter
-    */
-    @Override
-    public boolean containsAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends De> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> collection) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return false;
-    }
-
-    @Override
-    public void clear() {
-        System.out.println("Implémentation omise pour ce type de Collection");
-    }
-
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        System.out.println("Implémentation omise pour ce type de Collection");
-        return null;
-    }
 }
