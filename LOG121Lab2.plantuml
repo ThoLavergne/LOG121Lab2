@@ -166,9 +166,13 @@ title __LOG121LAB2's Class Diagram__\n
   framework.Factory .up.> framework.Jeu : instancie
   framework.Factory .up.> framework.DeCollection
   framework.Factory .up.> framework.PlayerCollection
+  framework.Jeu .up.> java.util.Iterator : connait
+  framework.DeCollection .up.> framework.De : connait
 
 hide tests
 hide programmeTest
+
+
 
 right footer
 

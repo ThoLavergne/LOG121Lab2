@@ -20,7 +20,6 @@ public class StrategieBunco extends Strategie {
         DeCollection des = jeu.getDes();
         boolean passerTour = false;
 
-        //On affiche les
 
         //Calcul de toutes les options de pointages
         while(!passerTour){
