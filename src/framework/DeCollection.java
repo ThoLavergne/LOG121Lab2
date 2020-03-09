@@ -25,7 +25,7 @@ public class DeCollection extends ComparableCollection {
 
             De deCourant = (De) iterator.next();
             int nbFaces = deCourant.getNbFaces();
-            deCourant.setFaceObtenue(rand.nextInt(nbFaces+1));
+            deCourant.setFaceObtenue(rand.nextInt(nbFaces) + 1);
             resultats[position] = deCourant.getFaceObtenue();
             position ++;
 

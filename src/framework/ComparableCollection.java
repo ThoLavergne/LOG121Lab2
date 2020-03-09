@@ -1,10 +1,12 @@
 package framework;
 
+import org.junit.runner.manipulation.Sortable;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class ComparableCollection implements Collection<Comparable>{
+public abstract class ComparableCollection implements Collection<Comparable>{
 
     private Comparable[] tabComparable;
     private int capacite = 0;
@@ -231,40 +233,6 @@ public class ComparableCollection implements Collection<Comparable>{
 
         this.tabComparable[position] = comp;
 
-    }
-
-    /**
-     * Méthode qui classe les joueurs selon leur score, du plus haut au plus bas, et retourne une copie
-     * de la Collection, triée
-     * @return rankedComparables : ComparableCollection en ordre décroisssant de score
-     */
-    public ComparableCollection triDecroissant(){
-
-        ComparableCollection rankedComparables = new ComparableCollection();
-
-        rankedComparables.setTabComparables(this.tabComparable.clone());
-
-        int pos_max = 0;
-
-        for (int indice_passe = 0; indice_passe < rankedComparables.size() -1 ; indice_passe++) {
-
-            pos_max = indice_passe;
-
-            for (int indice_recherche = (indice_passe+1); indice_recherche < rankedComparables.size(); indice_recherche ++ ) {
-
-                if(rankedComparables.getComparable(indice_recherche).compareTo(rankedComparables.getComparable(pos_max)) == -1) {
-                    pos_max = indice_recherche;
-                }
-            }
-
-            Comparable temp = rankedComparables.getComparable(indice_passe);
-            Comparable max = rankedComparables.getComparable(pos_max);
-            rankedComparables.setComparable(max, indice_passe);
-            rankedComparables.setComparable(temp, pos_max);
-
-        }
-
-        return rankedComparables;
     }
 
     /**

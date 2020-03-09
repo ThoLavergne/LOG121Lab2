@@ -10,21 +10,25 @@ public class PlayerCollection extends ComparableCollection{
    public void afficherComparables(){
 
         System.out.println("\nCLASSEMENT DES JOUEURS");
+        System.out.print("\nVainqueur:");
         super.afficherComparables();
     }
 
     /**
      * Méthode qui classe les joueurs selon leur score, du plus haut au plus bas, et retourne une copie
      * de la Collection, triée
-     * @return rankedComparables : ComparableCollection en ordre décroisssant de score
+     * Utilisation du triSelection
+     * @return rankedComparables : PlayerCollection en ordre décroisssant de score
      */
-    @Override
     public PlayerCollection triDecroissant(){
 
-        ComparableCollection rankedComparables = new PlayerCollection();
+        PlayerCollection rankedComparables = new PlayerCollection();
 
+        //On clone le tableau de Comparables dans une nouvelle Collection de joueurs
         rankedComparables.setTabComparables(this.getTabComparable().clone());
 
+
+        //On fait un tri sélection en ordre décroissant
         int pos_max = 0;
 
         for (int indice_passe = 0; indice_passe < rankedComparables.size() -1 ; indice_passe++) {
@@ -45,7 +49,8 @@ public class PlayerCollection extends ComparableCollection{
 
         }
 
-        return (PlayerCollection) rankedComparables;
+        //On retourne la nouvelle collection de Joueurs
+        return rankedComparables;
     }
 
 

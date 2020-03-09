@@ -10,7 +10,6 @@ public class Jeu {
     private int tourActuel;
     private PlayerCollection players;
     private Player playerActif;
-    //private int[] resultatActif;
     private DeCollection des;
 
     public Jeu(PlayerCollection players, DeCollection des, int nbrTours, Strategie strategie){
