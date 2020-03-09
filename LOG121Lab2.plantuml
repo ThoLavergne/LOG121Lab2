@@ -150,10 +150,10 @@ title __LOG121LAB2's Class Diagram__\n
   framework.ComparableCollection .up.|> java.util.Collection
   framework.De .up.|> java.lang.Comparable
   framework.DeCollection -up-|> framework.ComparableCollection
-  framework.Jeu o-- framework.DeCollection : des
-  framework.Jeu o-- framework.Player : playerActif
-  framework.Jeu o-- framework.PlayerCollection : players
-  framework.Jeu o-- framework.Strategie : strategie
+  framework.Jeu o-- framework.DeCollection
+  framework.Jeu o-- framework.Player
+  framework.Jeu o-- framework.PlayerCollection
+  framework.Jeu o-- framework.Strategie
   framework.Player .up.|> java.lang.Comparable
   framework.PlayerCollection -up-|> framework.ComparableCollection
   framework.TabIterator .up.|> java.util.Iterator
@@ -162,8 +162,13 @@ title __LOG121LAB2's Class Diagram__\n
   framework.DeCollection .up.> framework.TabIterator
   framework.PlayerCollection .up.> framework.TabIterator
   framework.ComparableCollection o-- java.lang.Comparable
+  bunco.StrategieBunco .up.> framework.Jeu : connait
+  framework.Factory .up.> framework.Jeu : instancie
+  framework.Factory .up.> framework.DeCollection
+  framework.Factory .up.> framework.PlayerCollection
 
 hide tests
+hide programmeTest
 
 right footer
 

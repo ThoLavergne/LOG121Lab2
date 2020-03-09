@@ -1,7 +1,5 @@
 package framework;
 
-import org.junit.runner.manipulation.Sortable;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
