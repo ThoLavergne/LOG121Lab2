@@ -8,6 +8,7 @@ public class Player implements Comparable<Player>{
     //Constructeur qui initialise le nom du joueur selon son numero
     public Player (int numero){
         this.name = "Player #" + numero;
+        this.setScore(0);
     }
 
     public String getName(){
